@@ -14,3 +14,63 @@ Powershell applies a verb-noun naming convention cmdlets, functions, and scripts
 Powershell does offer a decent amount (13 total) of keywords and reserved words such as "if", "else", "function", and "switch". Powershell is a dynamically typed language, which means variables don't have a fixed operand type and they can be changed throughout runtime. Powershell is a weakly typed language which means the variables are loosely defined and their types can change at runtime. If explcitly defined, Powershell can also support strong typing. You can choose to make some variables mutable, but they are inherently immutable. Mixed-type operations are allowed in Powershell, it automatically will perform type conversations to accomodate for mixed-type operations. Identifier names and operator symbols are bound at runtime in Powershell. Powershell does have certain limitations such as a restricted command set, scripting limitations, compatibility with 3-rd party clients, and resource management. The built-in complex data types powershell supports are arrays, hash tables, and custom objects.
 
 Sources: https://powershellfaqs.com/powershell-variable-naming-conventions/
+
+PLP-03:
+
+Boolean values in Powershell are $true and $false, but PowerShell also implicitly converts various values to booleans, true values consist of:
+- Any non-zero number
+- Any non-empty string
+- Any non empty collection
+- Any object that isn't $null
+
+While false values consist of:
+- the number 0
+- any empty string ("")
+- An empty collection
+- $null
+
+Sources: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_booleans?view=powershell-7.5
+
+In PowerShell, the conditional statements available are if and else statements, elseif statements, logical operators of and, or, and not, and ternary operators (greater than, lesser than, equal to, and not equal to.) PowerShell also offers switch statements and null checks. PowerShell also offers "like" statements which are for wildcard patterns and a match operator for regular expressions.
+
+Sources: https://learn.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-if?view=powershell-7.5
+
+PowerShell uses curly brackets as block delimiters in selection control statements (ex: if (condition){
+(statements
+})
+
+PowerShell uses short-circuit evaluation by only checking if the initial condition works for most code as seen in this code taken from Stack Overflow below:
+
+PS C:\> 1 -eq 0 -or $(Write-Host 'foo')
+foo
+False
+PS C:\> 1 -eq 1 -or $(Write-Host 'foo')
+True
+
+PS C:\> 1 -eq 1 -and $(Write-Host 'foo')
+foo
+False
+PS C:\> 1 -eq 0 -and $(Write-Host 'foo')
+False
+
+Sources: https://stackoverflow.com/questions/26766559/how-to-perform-short-circuit-evaluation-in-windows-powershell-4-0
+
+PowerShell doesn't face the "dangling else" problem in a way that other languages would because it's syntax is hard-coded to not leave room for any ambiguity in conditional statements.
+
+In PowerShell the switch statement runs like:
+switch (condition){
+<result1 to be matched> {<action>}
+<result2 to be match> {<action>}
+}
+
+Syntax is similar to if statements. Default acts as the else for a switch. The following parameters are set for switch statements:
+
+- Wildcard: indicated that the condition is a wildcard string, if the match isnt a string the parameter is ignored. comparison is case-insensitive
+- Exact: indicated that the match must match exactly, if match clause isn't a string the parameter is ignored, case-insensitive still.
+- CaseSensitive: performs a case-sensitive match, if clause isn't a string parameter is ignored.
+- File: takes input from a file, the file is read a line at a time, case-insensitive.
+- Regex: performs a regex pattern match, if the match clause isn't a string the parameter is ignored, case-insensitive.
+
+Break and continue are used in PowerShell switch statements with break ending the switch and continue staying in the switch but no longer processing the current value.
+
+Sources: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch?view=powershell-7.5

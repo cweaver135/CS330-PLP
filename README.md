@@ -113,3 +113,26 @@ Param (
 )
 Write-Output "Hello, World!"
 }
+
+
+PLP-05 Objects:
+
+Not only does PowerShell support objects, but in PowerShell EVERYTHING is an object. Objects in PS are composed of three key data types: types, methods, and properties. For Cmdlets and Functions it goes Verb-Noun in PascalCase, with the verb being from the approved verb list. For variables that are local use camelCase, and for global or script-scoped use PascalCase. For parameters use PascalCase. Finally, objects also use PascalCase.
+
+Sources: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects?view=powershell-7.5
+https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines?view=powershell-7.5
+
+In PowerShell there are no standard methods for functions that serve a similar purpose across all objects.
+
+PowerShell supports class inheritance which means a child/derived class will inherit properties and methods from a parent/base class. PowerShell supports single inheritance only, not multiple inheritance. In PowerShell method overloading is supported, meaning you can define methods with the same name as long as they don't have the same parameters. Overload resolution will happen at runtime.
+
+Example of a custom object being created:
+$customObject = [PSCustomObject]@{
+    Name = "John Pork"
+    Age  = 30
+}
+
+example of a custom object adding an attribute:
+$customObject.City = "Philadelphia"
+
+Source: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes_methods?view=powershell-7.5
